@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
 import { IPostService } from "../models/IPostService";
-
+import responseFormatter from "@root/presentation/utils/responseFormatter";
+import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class PostController {
   constructor(private postService: IPostService) {
     this.postService = postService;
@@ -11,22 +12,34 @@ class PostController {
     try {
       const postData: Post = req.body;
       const createdPost = await this.postService.createPost(postData);
-      res.status(201).json(createdPost);
+      responseFormatter(res)({
+        data: createdPost,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.CREATED,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while creating the post." });
+      responseFormatter(res)({
+        data: error,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 
-  async getAllPosts(req: Request, res: Response): Promise<void> {
+  async getAllPosts(_req: Request, res: Response): Promise<void> {
     try {
       const posts = await this.postService.getAllPosts();
-      res.json(posts);
+      responseFormatter(res)({
+        data: posts,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while retrieving the posts." });
+      responseFormatter(res)({
+        data: error,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 
@@ -35,14 +48,23 @@ class PostController {
       const postId: string = req.params.id;
       const post = await this.postService.getPostById(postId);
       if (!post) {
-        res.status(404).json({ error: "Post not found." });
+        responseFormatter(res)({
+          message: "Post not found.",
+          code: StatusCodes.NOT_FOUND,
+        });
         return;
       }
-      res.json(post);
+      return responseFormatter(res)({
+        data: post,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while retrieving the post." });
+      responseFormatter(res)({
+        data: error,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 
@@ -52,14 +74,22 @@ class PostController {
       const postData: Post = req.body;
       const updatedPost = await this.postService.updatePost(postId, postData);
       if (!updatedPost) {
-        res.status(404).json({ error: "Post not found." });
-        return;
+        responseFormatter(res)({
+          message: "Post not found.",
+          code: StatusCodes.NOT_FOUND,
+        });
       }
-      res.json(updatedPost);
+      responseFormatter(res)({
+        data: updatedPost,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while updating the post." });
+      responseFormatter(res)({
+        data: error,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 
@@ -68,14 +98,24 @@ class PostController {
       const postId: string = req.params.id;
       const deleted = await this.postService.deletePost(postId);
       if (!deleted) {
-        res.status(404).json({ error: "Post not found." });
+        responseFormatter(res)({
+          message: "Post not found.",
+          code: StatusCodes.NOT_FOUND,
+        });
         return;
       }
-      res.json({ message: "Post deleted successfully." });
+      responseFormatter(res)({
+        message: "Post deleted successfully.",
+        code: StatusCodes.CREATED,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while deleting the post." });
+      res;
+
+      responseFormatter(res)({
+        data: error,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 }
