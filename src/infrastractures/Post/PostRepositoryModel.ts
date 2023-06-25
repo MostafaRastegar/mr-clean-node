@@ -1,9 +1,10 @@
-import mongoose, { Document, Schema } from "mongoose";
+import Post from "@root/core/post/models/Post";
+import mongoose, { Schema } from "mongoose";
 
-export interface MongoosePostModel extends Document {
+export interface MongoosePostModel extends Post {
   title: string;
   content: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 const PostSchema: Schema = new Schema({

@@ -1,9 +1,9 @@
 import express from "express";
-import globalExpressMiddlewares from "./src/middlewares/globalExpressMiddlewears";
-import connectDB from "./src/config/database";
-import config from "./src/config";
+import globalExpressMiddlewares from "./src/presentation/middlewares/globalExpressMiddlewears";
+import connectDB from "./src/presentation/config/database";
+import config from "./src/presentation/config";
 
-import postRoutes from "./src/core/post/postRoutes";
+import postRoutes from "./src/presentation/routers/postRoutes";
 
 const app = express();
 globalExpressMiddlewares(app, express);
