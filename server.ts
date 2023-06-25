@@ -4,6 +4,7 @@ import connectDB from "./src/presentation/config/database";
 import config from "./src/presentation/config";
 
 import postRoutes from "./src/presentation/routers/postRoutes";
+import errorMiddleware from "@root/presentation/middlewares/errorMiddleware";
 
 const app = express();
 globalExpressMiddlewares(app, express);
@@ -15,6 +16,9 @@ app.post("/test", function (req, res) {
 });
 
 app.use("/api/blog-posts", postRoutes(router));
+
+// error handling
+errorMiddleware(app);
 
 // Connect to MongoDB
 connectDB().then(() => {
