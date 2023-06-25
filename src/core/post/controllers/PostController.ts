@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Post from "../models/Post";
 import { IPostService } from "../models/IPostService";
 import responseFormatter from "@root/presentation/utils/responseFormatter";
-
+import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class PostController {
   constructor(private postService: IPostService) {
     this.postService = postService;
@@ -12,41 +12,33 @@ class PostController {
     try {
       const postData: Post = req.body;
       const createdPost = await this.postService.createPost(postData);
-      responseFormatter({
-        res,
-        success: true,
+      responseFormatter(res)({
         data: createdPost,
-        message: "ok",
-        code: 201,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.CREATED,
       });
     } catch (error) {
-      responseFormatter({
-        res,
-        success: false,
+      responseFormatter(res)({
         data: error,
-        message: "An error occurred while creating the post.",
-        code: 500,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
       });
     }
   }
 
-  async getAllPosts(req: Request, res: Response): Promise<void> {
+  async getAllPosts(_req: Request, res: Response): Promise<void> {
     try {
       const posts = await this.postService.getAllPosts();
-      responseFormatter({
-        res,
-        success: true,
+      responseFormatter(res)({
         data: posts,
-        message: "ok",
-        code: 200,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
       });
     } catch (error) {
-      responseFormatter({
-        res,
-        success: false,
+      responseFormatter(res)({
         data: error,
-        message: "An error occurred while creating the post.",
-        code: 500,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
       });
     }
   }
@@ -56,29 +48,22 @@ class PostController {
       const postId: string = req.params.id;
       const post = await this.postService.getPostById(postId);
       if (!post) {
-        responseFormatter({
-          res,
-          success: false,
-          data: null,
+        responseFormatter(res)({
           message: "Post not found.",
-          code: 404,
+          code: StatusCodes.NOT_FOUND,
         });
         return;
       }
-      return responseFormatter({
-        res,
-        success: true,
+      return responseFormatter(res)({
         data: post,
-        message: "ok",
-        code: 200,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
       });
     } catch (error) {
-      responseFormatter({
-        res,
-        success: false,
+      responseFormatter(res)({
         data: error,
-        message: "An error occurred while retrieving the post.",
-        code: 500,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
       });
     }
   }
@@ -89,28 +74,21 @@ class PostController {
       const postData: Post = req.body;
       const updatedPost = await this.postService.updatePost(postId, postData);
       if (!updatedPost) {
-        responseFormatter({
-          res,
-          success: false,
-          data: null,
+        responseFormatter(res)({
           message: "Post not found.",
-          code: 404,
+          code: StatusCodes.NOT_FOUND,
         });
       }
-      responseFormatter({
-        res,
-        success: true,
+      responseFormatter(res)({
         data: updatedPost,
-        message: "ok",
-        code: 200,
+        message: ReasonPhrases.OK,
+        code: StatusCodes.OK,
       });
     } catch (error) {
-      responseFormatter({
-        res,
-        success: false,
+      responseFormatter(res)({
         data: error,
-        message: "An error occurred while updating the post.",
-        code: 500,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
       });
     }
   }
@@ -120,31 +98,23 @@ class PostController {
       const postId: string = req.params.id;
       const deleted = await this.postService.deletePost(postId);
       if (!deleted) {
-        responseFormatter({
-          res,
-          success: false,
-          data: null,
+        responseFormatter(res)({
           message: "Post not found.",
-          code: 404,
+          code: StatusCodes.NOT_FOUND,
         });
         return;
       }
-      responseFormatter({
-        res,
-        success: true,
-        data: null,
+      responseFormatter(res)({
         message: "Post deleted successfully.",
-        code: 201,
+        code: StatusCodes.CREATED,
       });
     } catch (error) {
       res;
 
-      responseFormatter({
-        res,
-        success: false,
+      responseFormatter(res)({
         data: error,
-        message: "An error occurred while deleting the post.",
-        code: 500,
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
       });
     }
   }

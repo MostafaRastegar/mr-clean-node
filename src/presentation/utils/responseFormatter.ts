@@ -1,27 +1,22 @@
 import { Response } from "express";
+import { StatusCodes } from "http-status-codes";
 
 interface ResponseFormatterProps {
-  res: Response;
-  success: boolean;
-  data: any;
+  data?: any;
   message: string;
   code: number;
 }
 
-const responseFormatter = ({
-  res,
-  success,
-  data,
-  message,
-  code,
-}: ResponseFormatterProps) => {
-  const response = {
-    success: success,
-    data: data,
-    message: message,
-    code: code,
+const responseFormatter =
+  (res: Response) =>
+  ({ data = null, message, code }: ResponseFormatterProps) => {
+    const response = {
+      success: code >= StatusCodes.OK && code < StatusCodes.MULTIPLE_CHOICES,
+      data: data,
+      message: message,
+      code: code,
+    };
+    res.status(code).json(response);
   };
-  res.status(code).json(response);
-};
 
 export default responseFormatter;

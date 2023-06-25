@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import type { Express } from "express";
 import responseFormatter from "../utils/responseFormatter";
+import { StatusCodes } from "http-status-codes";
 
 export class HttpException extends Error {
   statusCode?: number;
@@ -19,9 +20,7 @@ export class HttpException extends Error {
 
 const errorMiddleware = (app: Express) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
-    responseFormatter({
-      res,
-      success: false,
+    responseFormatter(res)({
       data: null,
       message: "Post not found.",
       code: 404,
@@ -30,10 +29,9 @@ const errorMiddleware = (app: Express) => {
 
   app.use(
     (error: HttpException, req: Request, res: Response, next: NextFunction) => {
-      const status = error.statusCode || error.status || 500;
-      responseFormatter({
-        res,
-        success: false,
+      const status =
+        error.statusCode || error.status || StatusCodes.INTERNAL_SERVER_ERROR;
+      responseFormatter(res)({
         data: error,
         message: "server error",
         code: status,
