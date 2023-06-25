@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "./index";
-import logger from "@root/utils/logger";
+import logger from "@root/presentation/utils/logger";
 
 const connectDB = async (): Promise<void> => {
   try {

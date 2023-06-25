@@ -9,12 +9,12 @@
     "baseUrl": ".",
     "paths": {
       "@root/*": ["./src/*"],
-      "@utils/*": ["src/utils/*"],
-      "@config/*": ["src/config/*"],
+      "@utils/*": ["src/presentation/utils/*"],
+      "@config/*": ["src/presentation/config/*"],
       "@core/*": ["./src/core/*"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@infrastructure/*": ["./src/infrastructure/*"],
-      "@presentation/*": ["./src/presentation/*"]
+      "@presentation/*": ["src/presentation/*"]
     }
   },
   "ts-node": {

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 
-import PostController from "./controllers/PostController";
-import PostService from "./services/PostService";
+import PostController from "../../core/post/controllers/PostController";
+import PostService from "../../core/post/services/PostService";
 import PostRepository from "../../infrastractures/Post/PostRepository";
 
 const postRepository = new PostRepository();

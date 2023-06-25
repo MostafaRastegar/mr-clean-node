@@ -1,6 +1,6 @@
 import PostRepositoryModel from "./PostRepositoryModel";
-import { IPostRepository } from "../../app/post/models/IPostRepository";
-import Post from "../../app/post/models/Post";
+import { IPostRepository } from "../../core/post/models/IPostRepository";
+import Post from "../../core/post/models/Post";
 
 class PostRepository implements IPostRepository {
   private mapPostRepositoryToPost(userMongoose: any): Post {
