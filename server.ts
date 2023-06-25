@@ -3,7 +3,7 @@ import globalExpressMiddlewares from "./src/middlewares/globalExpressMiddlewears
 import connectDB from "./src/config/database";
 import config from "./src/config";
 
-import postRoutes from "./src/app/post/postRoutes";
+import postRoutes from "./src/core/post/postRoutes";
 
 const app = express();
 globalExpressMiddlewares(app, express);
