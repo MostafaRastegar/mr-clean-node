@@ -79,7 +79,7 @@ To create CRUD operations for users and posts, follow these steps:
    - Import and register the newly created router in the
 
      ```
-     app.use("/api/v1/posts", postRoutes(router));
+     app.use("/api/v1/posts", postRoutes);
      ```
 
 With these steps, you can create CRUD operations for the `posts` by following the DDD architecture pattern.
