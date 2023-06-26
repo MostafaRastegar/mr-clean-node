@@ -22,7 +22,7 @@ const errorMiddleware = (app: Express) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     responseFormatter(res)({
       data: null,
-      message: "Post not found.",
+      message: "API not found.",
       code: 404,
     });
   });

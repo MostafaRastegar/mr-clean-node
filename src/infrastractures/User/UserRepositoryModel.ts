@@ -1,12 +1,7 @@
 import User from "@root/core/user/models/User";
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface UserDocument extends Document {
-  email: string;
-  name: string;
-  password: string;
-  isAdmin: boolean;
-}
+interface UserDocument extends Document, User {}
 
 const UserSchema: Schema<UserDocument> = new Schema({
   email: { type: String, required: true, unique: true },
@@ -15,4 +10,4 @@ const UserSchema: Schema<UserDocument> = new Schema({
   isAdmin: { type: Boolean, default: false },
 });
 
-export default mongoose.model<User>("User", UserSchema);
+export default mongoose.model<UserDocument>("User", UserSchema);

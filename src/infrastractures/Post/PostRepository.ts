@@ -5,10 +5,8 @@ import Post from "../../core/post/models/Post";
 class PostRepository implements IPostRepository {
   private mapPostRepositoryToPost(postMongoose: any): Post {
     return {
-      id: postMongoose._id.toString(),
       title: postMongoose.title,
       content: postMongoose.content,
-      createdAt: postMongoose.createdAt,
     };
   }
   async create(postData: Post): Promise<Post> {

@@ -6,6 +6,10 @@ import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class UserController {
   constructor(private userService: IUserService) {
     this.userService = userService;
+    this.registerUser = this.registerUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   async registerUser(req: Request, res: Response): Promise<void> {
@@ -43,6 +47,7 @@ class UserController {
         code: StatusCodes.OK,
       });
     } catch (error) {
+      console.log("error :>> ", error);
       responseFormatter(res)({
         data: error,
         message: ReasonPhrases.INTERNAL_SERVER_ERROR,

@@ -16,8 +16,8 @@ app.post("/test", function (req, res) {
   console.log(`${req.body}`);
 });
 
-app.use("/api/v1/posts", postRoutes(router));
-app.use("/api/v1/users", userRoutes(router));
+app.use("/api/v1/posts", postRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // error handling
 errorMiddleware(app);

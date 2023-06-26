@@ -6,6 +6,11 @@ import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class PostController {
   constructor(private postService: IPostService) {
     this.postService = postService;
+    this.createPost = this.createPost.bind(this);
+    this.getAllPosts = this.getAllPosts.bind(this);
+    this.getPostById = this.getPostById.bind(this);
+    this.updatePost = this.updatePost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   async createPost(req: Request, res: Response): Promise<void> {
