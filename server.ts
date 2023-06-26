@@ -2,9 +2,10 @@ import express from "express";
 import globalExpressMiddlewares from "./src/presentation/middlewares/globalExpressMiddlewears";
 import connectDB from "./src/presentation/config/database";
 import config from "./src/presentation/config";
+import errorMiddleware from "@root/presentation/middlewares/errorMiddleware";
 
 import postRoutes from "./src/presentation/routers/postRoutes";
-import errorMiddleware from "@root/presentation/middlewares/errorMiddleware";
+import userRoutes from "./src/presentation/routers/userRoutes";
 
 const app = express();
 globalExpressMiddlewares(app, express);
@@ -15,7 +16,8 @@ app.post("/test", function (req, res) {
   console.log(`${req.body}`);
 });
 
-app.use("/api/blog-posts", postRoutes(router));
+app.use("/api/v1/posts", postRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // error handling
 errorMiddleware(app);

@@ -8,8 +8,8 @@ const globalExpressMiddlewares = (app: Express, express: any) => {
     res.header("Content-Type", "application/json");
     next();
   });
-  app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
   app.use(express.static("public"));
   app.use(helmet());
   app.use(morgan("dev"));

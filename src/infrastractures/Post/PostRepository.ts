@@ -3,12 +3,10 @@ import { IPostRepository } from "../../core/post/models/IPostRepository";
 import Post from "../../core/post/models/Post";
 
 class PostRepository implements IPostRepository {
-  private mapPostRepositoryToPost(userMongoose: any): Post {
+  private mapPostRepositoryToPost(postMongoose: any): Post {
     return {
-      id: userMongoose._id.toString(),
-      title: userMongoose.title,
-      content: userMongoose.content,
-      createdAt: userMongoose.createdAt,
+      title: postMongoose.title,
+      content: postMongoose.content,
     };
   }
   async create(postData: Post): Promise<Post> {

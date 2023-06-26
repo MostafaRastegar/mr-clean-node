@@ -1,16 +1,14 @@
 import Post from "@root/core/post/models/Post";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface MongoosePostModel extends Post {
+export interface PostDocument extends Document, Post {
   title: string;
   content: string;
-  createdAt: Date;
 }
 
-const PostSchema: Schema = new Schema({
+const PostSchema: Schema<PostDocument> = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model<MongoosePostModel>("Post", PostSchema);
+export default mongoose.model<PostDocument>("Post", PostSchema);
