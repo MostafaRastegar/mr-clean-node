@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import User from "../models/User";
-import { IAuthService } from "../models/IAuthService";
+import { IUserService } from "../models/IUserService";
 import responseFormatter from "@root/presentation/utils/responseFormatter";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-class AuthController {
-  constructor(private authService: IAuthService) {
-    this.authService = authService;
+class UserController {
+  constructor(private userService: IUserService) {
+    this.userService = userService;
   }
 
-  async createUser(req: Request, res: Response): Promise<void> {
+  async registerUser(req: Request, res: Response): Promise<void> {
     try {
       const userData: User = req.body;
-      const createdUser = await this.authService.createUser(userData);
+      const createdUser = await this.userService.createUser(userData);
       responseFormatter(res)({
         data: createdUser,
         message: ReasonPhrases.OK,
@@ -26,10 +26,10 @@ class AuthController {
     }
   }
 
-  async getUserById(req: Request, res: Response): Promise<void> {
+  async loginUser(req: Request, res: Response): Promise<void> {
     try {
-      const userId: string = req.params.id;
-      const user = await this.authService.getUserById(userId);
+      const userEmail: string = req.body.email;
+      const user = await this.userService.getUserByEmail(userEmail);
       if (!user) {
         responseFormatter(res)({
           message: "User not found.",
@@ -55,7 +55,7 @@ class AuthController {
     try {
       const userId: string = req.params.id;
       const userData: User = req.body;
-      const updatedUser = await this.authService.updateUser(userId, userData);
+      const updatedUser = await this.userService.updateUser(userId, userData);
       if (!updatedUser) {
         responseFormatter(res)({
           message: "User not found.",
@@ -79,7 +79,7 @@ class AuthController {
   async deleteUser(req: Request, res: Response): Promise<void> {
     try {
       const userId: string = req.params.id;
-      const deleted = await this.authService.deleteUser(userId);
+      const deleted = await this.userService.deleteUser(userId);
       if (!deleted) {
         responseFormatter(res)({
           message: "User not found.",
@@ -103,4 +103,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+export default UserController;
