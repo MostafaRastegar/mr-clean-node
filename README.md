@@ -70,7 +70,7 @@ To create CRUD operations for users and posts, follow these steps:
 3. Create a new router:
 
    - Navigate to the `routers` directory under `src/presentation`.
-   - Create a new router file (`postRoutes.ts`).
+   - Create a new router file (`router.ts`).
    - Define the API endpoints and map them to the appropriate controller methods.
 
 4. Register the router:

@@ -1,11 +1,11 @@
 import express from "express";
-import globalExpressMiddlewares from "./src/presentation/middlewares/globalExpressMiddlewears";
-import connectDB from "./src/presentation/config/database";
-import config from "./src/presentation/config";
-import errorMiddleware from "@root/presentation/middlewares/errorMiddleware";
+import globalExpressMiddlewares from "@root/app/middlewares/globalExpressMiddlewears";
+import connectDB from "@root/app/config/database";
+import config from "./src/app/config";
+import errorMiddleware from "@root/app/middlewares/errorMiddleware";
 
-import postRoutes from "./src/presentation/routers/postRoutes";
-import userRoutes from "./src/presentation/routers/userRoutes";
+import userRouter from "@root/user/apis/v1/userRouter";
+import postRouter from "@root/post/apis/v1/postRouter";
 
 const app = express();
 globalExpressMiddlewares(app, express);
@@ -16,8 +16,8 @@ app.post("/test", function (req, res) {
   console.log(`${req.body}`);
 });
 
-app.use("/api/v1/posts", postRoutes);
-app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", postRouter);
 
 // error handling
 errorMiddleware(app);
