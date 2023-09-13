@@ -8,13 +8,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@root/*": ["./src/*"],
-      "@utils/*": ["src/presentation/utils/*"],
-      "@config/*": ["src/presentation/config/*"],
-      "@core/*": ["./src/core/*"],
-      "@interfaces/*": ["./src/interfaces/*"],
-      "@infrastructure/*": ["./src/infrastructure/*"],
-      "@presentation/*": ["src/presentation/*"]
+      "@/*": ["src/*"]
     }
   },
   "ts-node": {

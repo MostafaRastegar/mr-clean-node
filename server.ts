@@ -1,11 +1,12 @@
+import "module-alias/register";
 import express from "express";
-import globalExpressMiddlewares from "@root/app/middlewares/globalExpressMiddlewears";
-import connectDB from "@root/app/config/database";
+import globalExpressMiddlewares from "./src/app/middlewares/globalExpressMiddlewears";
+import connectDB from "./src/app/config/database";
 import config from "./src/app/config";
-import errorMiddleware from "@root/app/middlewares/errorMiddleware";
+import errorMiddleware from "./src/app/middlewares/errorMiddleware";
 
-import userRouter from "@root/user/apis/v1/userRouter";
-import postRouter from "@root/post/apis/v1/postRouter";
+import userRouter from "./src/user/apis/v1/userRouter";
+import postRouter from "./src/post/apis/v1/postRouter";
 
 const app = express();
 globalExpressMiddlewares(app, express);

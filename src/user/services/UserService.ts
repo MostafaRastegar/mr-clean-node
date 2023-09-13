@@ -1,6 +1,6 @@
-import User from "../models/User";
-import { IUserRepository } from "../repositories/IUserRepository";
-import {IUserService} from "@root/user/services/IUserService";
+import User from "@/user/models/User";
+import { IUserRepository } from "@/user/repositories/IUserRepository";
+import { IUserService } from "@/user/services/IUserService";
 
 class UserService implements IUserService {
   UserRepository: IUserRepository;

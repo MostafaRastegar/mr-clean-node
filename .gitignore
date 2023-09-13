@@ -1,2 +1,4 @@
 node_modules
 thunder-tests
+dist
+db

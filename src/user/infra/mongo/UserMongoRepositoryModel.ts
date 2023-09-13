@@ -1,4 +1,4 @@
-import User from "@root/user/models/User";
+import User from "@/user/models/User";
 import mongoose, { Schema, Document } from "mongoose";
 
 interface UserDocument extends Document, User {}

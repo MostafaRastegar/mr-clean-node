@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import type { Express } from "express";
-import responseFormatter from "@root/utils/responseFormatter";
+import responseFormatter from "@/utils/responseFormatter";
 import { StatusCodes } from "http-status-codes";
 
 export class HttpException extends Error {

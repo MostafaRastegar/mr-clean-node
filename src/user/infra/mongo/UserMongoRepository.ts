@@ -1,6 +1,6 @@
 import UserRepositoryModel from "./UserMongoRepositoryModel";
-import { IUserRepository } from "@root/user/repositories/IUserRepository";
-import User from "@root/user/models/User";
+import { IUserRepository } from "@/user/repositories/IUserRepository";
+import User from "@/user/models/User";
 
 class UserMongoRepository implements IUserRepository {
   private mapUserRepositoryToUser(userMongoose: any): User {

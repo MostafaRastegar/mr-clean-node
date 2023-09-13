@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import User from "@root/user/models/User";
-import { IUserService } from "@root/user/services/IUserService";
-import responseFormatter from "@root/utils/responseFormatter";
+import User from "@/user/models/User";
+import { IUserService } from "@/user/services/IUserService";
+import responseFormatter from "@/utils/responseFormatter";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class UserController {
   constructor(private userService: IUserService) {

@@ -1,4 +1,4 @@
-import Post from "@root/post/models/Post";
+import Post from "@/post/models/Post";
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface PostDocument extends Document, Post {

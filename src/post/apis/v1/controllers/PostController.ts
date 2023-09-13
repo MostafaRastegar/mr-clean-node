@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Post from "@root/post/models/Post";
-import { IPostService } from "@root/post/services/IPostService";
-import responseFormatter from "@root/utils/responseFormatter";
+import Post from "@/post/models/Post";
+import { IPostService } from "@/post/services/IPostService";
+import responseFormatter from "@/utils/responseFormatter";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 class PostController {
   constructor(private postService: IPostService) {

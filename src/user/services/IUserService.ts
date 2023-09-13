@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "@/user/models/User";
 
 export interface IUserService {
   createUser(userData: User): Promise<User>;

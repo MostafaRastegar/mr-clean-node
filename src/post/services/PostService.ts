@@ -1,6 +1,6 @@
-import Post from "../models/Post";
-import { IPostRepository } from "../repositories/IPostRepository";
-import {IPostService} from "@root/post/services/IPostService";
+import Post from "@/post/models/Post";
+import { IPostRepository } from "@/post/repositories/IPostRepository";
+import { IPostService } from "@/post/services/IPostService";
 
 class PostService implements IPostService {
   postRepository: IPostRepository;

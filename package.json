@@ -40,12 +40,6 @@
     "typescript": "^5.1.3"
   },
   "_moduleAliases": {
-    "@root": "dist",
-    "@utils": "dist/presentation/utils",
-    "@config": "dist/config",
-    "@core": "dist/core",
-    "@interfaces": "dist/interfaces",
-    "@infrastructure": "dist/infrastructure",
-    "@presentation": "dist/presentation"
+    "@": "dist/src"
   }
 }

@@ -1,4 +1,4 @@
-import Post from "../models/Post";
+import Post from "@/post/models/Post";
 
 export interface IPostService {
   createPost(postData: Post): Promise<Post>;

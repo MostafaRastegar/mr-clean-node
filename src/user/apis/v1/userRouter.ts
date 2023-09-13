@@ -2,9 +2,9 @@ import express from "express";
 
 const userRouter = express.Router();
 
-import UserController from "@root/user/apis/v1/controllers/UserController";
-import UserService from "@root/user/services/UserService";
-import UserMongoRepository from "../../infra/mongo/UserMongoRepository";
+import UserController from "@/user/apis/v1/controllers/UserController";
+import UserService from "@/user/services/UserService";
+import UserMongoRepository from "@/user/infra/mongo/UserMongoRepository";
 
 const userRepository = new UserMongoRepository();
 const userService = new UserService(userRepository);

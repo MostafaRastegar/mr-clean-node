@@ -1,9 +1,9 @@
 import express from "express";
 const postRouter = express.Router();
 
-import PostController from "@root/post/apis/v1/controllers/PostController";
-import PostService from "@root/post/services/PostService";
-import PostRepository from "../../infra/PostRepository";
+import PostController from "@/post/apis/v1/controllers/PostController";
+import PostService from "@/post/services/PostService";
+import PostRepository from "@/post/infra/PostRepository";
 
 const postRepository = new PostRepository();
 const postService = new PostService(postRepository);
