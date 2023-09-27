@@ -59,7 +59,7 @@ class PostController {
         });
         return;
       }
-      return responseFormatter(res)({
+      responseFormatter(res)({
         data: post,
         message: ReasonPhrases.OK,
         code: StatusCodes.OK,

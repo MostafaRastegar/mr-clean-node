@@ -9,6 +9,7 @@ class UserMongoRepository implements IUserRepository {
       name: userMongoose.name,
       password: userMongoose.password,
       isAdmin: userMongoose.isAdmin,
+      id: userMongoose._id.toString(),
     };
   }
   async create(userData: User): Promise<User> {

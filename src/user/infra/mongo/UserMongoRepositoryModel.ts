@@ -1,7 +1,7 @@
 import User from "@/user/models/User";
 import mongoose, { Schema, Document } from "mongoose";
 
-interface UserDocument extends Document, User {}
+interface UserDocument extends Document, Omit<User, "id"> {}
 
 const UserSchema: Schema<UserDocument> = new Schema({
   email: { type: String, required: true, unique: true },
