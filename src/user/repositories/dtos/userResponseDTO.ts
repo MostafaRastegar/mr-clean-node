@@ -1,4 +1,4 @@
-import User, { UserResponseDTO } from "../models/User";
+import User, { UserResponseDTO } from "@/user/models/User";
 
 export const userResponseDTO = (user: User): UserResponseDTO => ({
   email: user?.email,

@@ -34,6 +34,13 @@ class PostController {
   async getAllPosts(_req: Request, res: Response): Promise<void> {
     try {
       const posts = await this.postService.getAllPosts();
+      res.cookie("JWT_TOKEN_SS_ZZ_RR_TT", "10", {
+        // expires: new Date(Date.now() + 9999999),
+        secure: true,
+        httpOnly: true,
+        maxAge: 30 * 60 * 24,
+        domain: "localhost",
+      });
       responseFormatter(res)({
         data: posts,
         message: ReasonPhrases.OK,

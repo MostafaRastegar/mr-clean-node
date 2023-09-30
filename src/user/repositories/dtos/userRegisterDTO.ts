@@ -1,4 +1,4 @@
-import { UserRegisterDTO } from "../models/User";
+import { UserRegisterDTO } from "@/user/models/User";
 
 export const registerUserDTO = (body: UserRegisterDTO): UserRegisterDTO => ({
   email: body?.email,

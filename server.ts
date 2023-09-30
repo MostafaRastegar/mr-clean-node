@@ -14,14 +14,9 @@ const app = express();
 globalExpressMiddlewares(app, express);
 app.use(
   cors({
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-    exposedHeaders: ["Content-Type"],
+    origin: "http://localhost:5000",
   })
 );
-app.use((req) => console.log("req :>> ", req));
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/posts", postRouter);
