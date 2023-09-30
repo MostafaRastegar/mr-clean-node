@@ -1,10 +1,7 @@
 import Post from "@/post/models/Post";
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface PostDocument extends Document, Post {
-  title: string;
-  content: string;
-}
+export interface PostDocument extends Document, Omit<Post, "id"> {}
 
 const PostSchema: Schema<PostDocument> = new Schema({
   title: { type: String, required: true },

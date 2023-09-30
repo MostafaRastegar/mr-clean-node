@@ -7,7 +7,7 @@ import { registerUserDTO } from "@/user/repositories/dtos/userRegisterDTO";
 import { userResponseDTO } from "@/user/repositories/dtos/userResponseDTO";
 import { userUpdateDTO } from "@/user/repositories/dtos/userUpdateDTO";
 import { RequestWithUser } from "@/app/middlewares/authMiddleware";
-
+import checkUser from "@/utils/checkUserid";
 const bcrypt = require("bcrypt"); // import bcrypt to hash passwords
 const jwt = require("jsonwebtoken"); // import jwt to sign tokens
 const { ACCESS_TOKEN_SECRET = "ACCESS_TOKEN_SECRET" } = process.env;
@@ -26,7 +26,6 @@ function UserController(userService: IUserService) {
           ...registerUserDTO(userData),
           password: hashedPassword,
         });
-
         const response = createdUser
           ? {
               data: userResponseDTO(createdUser),
@@ -65,9 +64,16 @@ function UserController(userService: IUserService) {
         }
 
         const token = jwt.sign({ id: user.id }, ACCESS_TOKEN_SECRET);
-        res.cookie("JWT_TOKEN", token);
 
-        responseFormatter(res)({
+        res.cookie("JWT_TOKEN", token, {
+          expires: new Date(Date.now() + 9999999),
+          secure: true,
+          httpOnly: true,
+          maxAge: 30 * 60 * 24,
+          domain: "localhost",
+        });
+
+        return responseFormatter(res)({
           data: token,
           message: ReasonPhrases.OK,
           code: StatusCodes.OK,
@@ -90,7 +96,6 @@ function UserController(userService: IUserService) {
             code: StatusCodes.FORBIDDEN,
           });
         }
-
         const userData: UserUpdateDTO = userUpdateDTO(req.body);
         const updatedUser = await userService.updateUser(userId, userData);
 
@@ -118,6 +123,8 @@ function UserController(userService: IUserService) {
     ): Promise<void> {
       try {
         const userId: string = req.params.id;
+        checkUser(userId, req as RequestWithUser, res);
+
         const deleted = await userService.deleteUser(userId);
         if (!deleted) {
           return responseFormatter(res)({

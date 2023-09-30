@@ -1,8 +1,4 @@
-import User, {
-  UserResponseDTO,
-  UserRegisterDTO,
-  UserUpdateDTO,
-} from "@/user/models/User";
+import User, { UserRegisterDTO, UserUpdateDTO } from "@/user/models/User";
 
 export interface IUserService {
   createUser(userData: UserRegisterDTO): Promise<User>;

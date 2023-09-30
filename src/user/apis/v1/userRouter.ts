@@ -11,6 +11,6 @@ const userController = UserController(UserService(UserRepository));
 userRouter.post("/register", userController.registerUser);
 userRouter.post("/login", userController.loginUser);
 userRouter.put("/:id", authMiddleware, userController.updateUser);
-userRouter.delete("/:id", userController.deleteUser);
+userRouter.delete("/:id", authMiddleware, userController.deleteUser);
 
 export default userRouter;
