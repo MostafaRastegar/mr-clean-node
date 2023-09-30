@@ -1,8 +1,8 @@
-import User from "@/user/models/User";
+import User, { UserRegisterDTO, UserUpdateDTO } from "@/user/models/User";
 
 export interface IUserService {
-  createUser(userData: User): Promise<User>;
+  createUser(userData: UserRegisterDTO): Promise<User>;
   getUserByEmail(userEmail: string): Promise<User | null>;
-  updateUser(userId: string, User: User): Promise<User | null>;
+  updateUser(userId: string, User: UserUpdateDTO): Promise<User | null>;
   deleteUser(userId: string): Promise<boolean>;
 }

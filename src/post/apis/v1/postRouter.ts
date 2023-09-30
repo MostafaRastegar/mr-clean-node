@@ -3,11 +3,9 @@ const postRouter = express.Router();
 
 import PostController from "@/post/apis/v1/controllers/PostController";
 import PostService from "@/post/services/PostService";
-import PostRepository from "@/post/infra/PostRepository";
+import { PostRepository } from "@/post/infra";
 
-const postRepository = new PostRepository();
-const postService = new PostService(postRepository);
-const postController = new PostController(postService);
+const postController = PostController(PostService(PostRepository));
 
 postRouter.post("/", postController.createPost);
 postRouter.get("/", postController.getAllPosts);
