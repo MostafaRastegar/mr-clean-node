@@ -7,6 +7,7 @@ function mapPostRepositoryToPost(postMongoose: any): Post {
     title: postMongoose.title,
     content: postMongoose.content,
     id: postMongoose._id.toString(),
+    authorId: postMongoose._id.toString(),
   };
 }
 function PostRepository(): IPostRepository {

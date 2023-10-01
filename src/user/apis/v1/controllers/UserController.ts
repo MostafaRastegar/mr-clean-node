@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { UserUpdateDTO, UserRegisterDTO } from "@/user/models/User";
 import { IUserService } from "@/user/services/IUserService";
 import responseFormatter from "@/utils/responseFormatter";
@@ -8,8 +10,6 @@ import { userResponseDTO } from "@/user/repositories/dtos/userResponseDTO";
 import { userUpdateDTO } from "@/user/repositories/dtos/userUpdateDTO";
 import { RequestWithUser } from "@/app/middlewares/authMiddleware";
 import checkUser from "@/utils/checkUserid";
-const bcrypt = require("bcrypt"); // import bcrypt to hash passwords
-const jwt = require("jsonwebtoken"); // import jwt to sign tokens
 const { ACCESS_TOKEN_SECRET = "ACCESS_TOKEN_SECRET" } = process.env;
 
 function UserController(userService: IUserService) {
@@ -63,7 +63,10 @@ function UserController(userService: IUserService) {
           throw new Error("Password doesn't match.");
         }
 
-        const token = jwt.sign({ id: user.id }, ACCESS_TOKEN_SECRET);
+        const token = jwt.sign(
+          { id: user.id, email: user.email, name: user.name },
+          ACCESS_TOKEN_SECRET
+        );
 
         res.cookie("JWT_TOKEN", token, {
           expires: new Date(Date.now() + 9999999),

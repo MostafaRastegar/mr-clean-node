@@ -3,12 +3,22 @@ import Post from "@/post/models/Post";
 import { IPostService } from "@/post/services/IPostService";
 import responseFormatter from "@/utils/responseFormatter";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { RequestWithUser } from "@/app/middlewares/authMiddleware";
 function PostController(postService: IPostService) {
   return {
     async createPost(req: Request, res: Response): Promise<void> {
       try {
         const postData: Post = req.body;
-        const createdPost = await postService.createPost(postData);
+        console.log(
+          "(req as RequestWithUser).user :>> ",
+          (req as RequestWithUser).user.id
+        );
+        const postWithAuthor = {
+          ...postData,
+          authorId: (req as RequestWithUser).user.id,
+        };
+        console.log("createdPost :>> ", postWithAuthor);
+        const createdPost = await postService.createPost(postWithAuthor);
         return responseFormatter(res)({
           data: createdPost,
           message: ReasonPhrases.OK,
