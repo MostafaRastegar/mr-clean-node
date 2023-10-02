@@ -5,4 +5,5 @@ export const registerUserDTO = (body: UserRegisterDTO): UserRegisterDTO => ({
   name: body?.name,
   isAdmin: body?.isAdmin || false,
   password: body?.password,
+  _id: body?._id,
 });

@@ -10,7 +10,7 @@ const postController = PostController(PostService(PostRepository));
 postRouter.post("/", authMiddleware, postController.createPost);
 postRouter.get("/", postController.getAllPosts);
 postRouter.get("/:id", postController.getPostById);
-postRouter.put("/:id", postController.updatePost);
-postRouter.delete("/:id", postController.deletePost);
+postRouter.put("/:id", authMiddleware, postController.updatePost);
+postRouter.delete("/:id", authMiddleware, postController.deletePost);
 
 export default postRouter;

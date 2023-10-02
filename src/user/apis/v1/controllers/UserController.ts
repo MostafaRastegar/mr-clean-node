@@ -62,11 +62,9 @@ function UserController(userService: IUserService) {
         if (!result) {
           throw new Error("Password doesn't match.");
         }
-
-        const token = jwt.sign(
-          { id: user.id, email: user.email, name: user.name },
-          ACCESS_TOKEN_SECRET
-        );
+        console.log("user :>> ", user);
+        const { password, ...userWithoutPassword } = user;
+        const token = jwt.sign(userWithoutPassword, ACCESS_TOKEN_SECRET);
 
         res.cookie("JWT_TOKEN", token, {
           expires: new Date(Date.now() + 9999999),
@@ -92,13 +90,8 @@ function UserController(userService: IUserService) {
       next: NextFunction
     ): Promise<void> {
       try {
-        const userId: string = req.params.id;
-        if (userId !== (req as RequestWithUser).user.id) {
-          return responseFormatter(res)({
-            message: "User not permission.",
-            code: StatusCodes.FORBIDDEN,
-          });
-        }
+        const userId = req.params.id;
+        checkUser(userId, req as RequestWithUser, res);
         const userData: UserUpdateDTO = userUpdateDTO(req.body);
         const updatedUser = await userService.updateUser(userId, userData);
 

@@ -8,7 +8,7 @@ const mapUserRepositoryToUser = function (userMongoose: any): User {
     name: userMongoose.name,
     password: userMongoose.password,
     isAdmin: userMongoose.isAdmin,
-    id: userMongoose._id.toString(),
+    _id: userMongoose._id,
   };
 };
 

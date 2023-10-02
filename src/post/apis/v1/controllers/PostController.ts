@@ -4,21 +4,17 @@ import { IPostService } from "@/post/services/IPostService";
 import responseFormatter from "@/utils/responseFormatter";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { RequestWithUser } from "@/app/middlewares/authMiddleware";
+import checkUser from "@/utils/checkUserid";
 function PostController(postService: IPostService) {
   return {
     async createPost(req: Request, res: Response): Promise<void> {
       try {
         const postData: Post = req.body;
-        console.log(
-          "(req as RequestWithUser).user :>> ",
-          (req as RequestWithUser).user.id
-        );
-        const postWithAuthor = {
+        const postWith_author = {
           ...postData,
-          authorId: (req as RequestWithUser).user.id,
+          _author: (req as RequestWithUser).user._id,
         };
-        console.log("createdPost :>> ", postWithAuthor);
-        const createdPost = await postService.createPost(postWithAuthor);
+        const createdPost = await postService.createPost(postWith_author);
         return responseFormatter(res)({
           data: createdPost,
           message: ReasonPhrases.OK,
@@ -78,13 +74,17 @@ function PostController(postService: IPostService) {
       try {
         const postId: string = req.params.id;
         const postData: Post = req.body;
-        const updatedPost = await postService.updatePost(postId, postData);
-        if (!updatedPost) {
+        const postDetail = await postService.getPostById(postId);
+        if (!postDetail) {
           return responseFormatter(res)({
             message: "Post not found.",
             code: StatusCodes.NOT_FOUND,
           });
         }
+        if (postDetail) {
+          checkUser(postDetail._author.toString(), req as RequestWithUser, res);
+        }
+        const updatedPost = await postService.updatePost(postId, postData);
         return responseFormatter(res)({
           data: updatedPost,
           message: ReasonPhrases.OK,

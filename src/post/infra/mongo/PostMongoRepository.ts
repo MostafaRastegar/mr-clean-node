@@ -7,9 +7,10 @@ function mapPostRepositoryToPost(postMongoose: any): Post {
     title: postMongoose.title,
     content: postMongoose.content,
     id: postMongoose._id.toString(),
-    authorId: postMongoose._id.toString(),
+    _author: postMongoose._author,
   };
 }
+
 function PostRepository(): IPostRepository {
   return {
     async create(postData: Post): Promise<Post> {
@@ -23,7 +24,9 @@ function PostRepository(): IPostRepository {
     },
 
     async getById(postId: string): Promise<Post | null> {
-      const post = await PostRepositoryModel.findById(postId).exec();
+      const post = await PostRepositoryModel.findById(postId)
+        .populate({ path: "_author", select: "-password" })
+        .exec();
       return post ? mapPostRepositoryToPost(post) : null;
     },
 
