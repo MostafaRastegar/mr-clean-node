@@ -1,10 +1,10 @@
 import express from "express";
-const postRouter = express.Router();
-
+import authMiddleware from "@/app/middlewares/authMiddleware";
 import PostController from "@/post/apis/v1/controllers/PostController";
 import PostService from "@/post/services/PostService";
 import { PostRepository } from "@/post/infra";
-import authMiddleware from "@/app/middlewares/authMiddleware";
+
+const postRouter = express.Router();
 const postController = PostController(PostService(PostRepository));
 
 postRouter.post("/", authMiddleware, postController.createPost);

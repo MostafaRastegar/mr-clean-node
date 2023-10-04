@@ -1,20 +1,21 @@
 import UserRepositoryModel from "./UserMongoRepositoryModel";
 import { IUserRepository } from "@/user/repositories/IUserRepository";
-import User from "@/user/models/User";
+import User, { UserWithId, UserWithoutId } from "@/user/models/User";
 
-const mapUserRepositoryToUser = function (userMongoose: any): User {
+const mapUserRepositoryToUser = function (userMongoose: any): UserWithId {
   return {
     email: userMongoose.email,
     name: userMongoose.name,
     password: userMongoose.password,
     isAdmin: userMongoose.isAdmin,
-    _id: userMongoose._id,
+    id: userMongoose._id,
   };
 };
 
 function UserMongoRepository(): IUserRepository {
   return {
-    async create(userData: User): Promise<User> {
+    async create(userData: UserWithoutId): Promise<User> {
+      console.log("userData :>> ", userData);
       const user = await UserRepositoryModel.create(userData);
       return mapUserRepositoryToUser(user);
     },

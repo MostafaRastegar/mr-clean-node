@@ -10,7 +10,8 @@ import {
 } from "./validator";
 
 const userRouter = express.Router();
-const userController = UserController(UserService(UserRepository));
+const userService = UserService(UserRepository);
+const userController = UserController(userService);
 
 userRouter.put("/:id", authMiddleware, userController.updateUser);
 userRouter.delete("/:id", authMiddleware, userController.deleteUser);

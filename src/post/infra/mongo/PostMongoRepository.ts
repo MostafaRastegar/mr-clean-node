@@ -1,6 +1,6 @@
 import PostRepositoryModel from "./PostMongoRepositoryModel";
 import { IPostRepository } from "@/post/repositories/IPostRepository";
-import Post from "@/post/models/Post";
+import Post, { PostWithAuthor } from "@/post/models/Post";
 
 function mapPostRepositoryToPost(postMongoose: any): Post {
   return {
@@ -23,11 +23,18 @@ function PostRepository(): IPostRepository {
       return posts.map((post) => mapPostRepositoryToPost(post));
     },
 
-    async getById(postId: string): Promise<Post | null> {
+    async getById(postId: string): Promise<PostWithAuthor | null> {
       const post = await PostRepositoryModel.findById(postId)
         .populate({ path: "_author", select: "-password" })
         .exec();
-      return post ? mapPostRepositoryToPost(post) : null;
+      return post
+        ? ({
+            title: post.title,
+            content: post.content,
+            id: post._id.toString(),
+            _author: post._author,
+          } as unknown as PostWithAuthor)
+        : null;
     },
 
     async update(postId: string, postData: Post): Promise<Post | null> {

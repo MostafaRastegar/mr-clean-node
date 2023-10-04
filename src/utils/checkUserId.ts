@@ -4,12 +4,14 @@ import { Response } from "express";
 import { RequestWithUser } from "@/app/middlewares/authMiddleware";
 
 const checkUser = (userId: string, req: RequestWithUser, res: Response) => {
-  if (userId !== req.user._id.toString()) {
+  if (userId !== req.user.id.toString()) {
     responseFormatter(res)({
       message: "User not permission.",
       code: StatusCodes.FORBIDDEN,
     });
+    return false;
   }
+  return true;
 };
 
 export default checkUser;

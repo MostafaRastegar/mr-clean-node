@@ -1,4 +1,4 @@
-import User from "@/user/models/User";
+import User, { UserWithId } from "@/user/models/User";
 import { ObjectId } from "mongoose";
 
 interface Post {
@@ -8,8 +8,8 @@ interface Post {
   _author: ObjectId;
 }
 
-export interface PostWith_author extends Post {
-  _author: Omit<User, "password">;
+export interface PostWithAuthor extends Omit<Post, "_author"> {
+  _author: Omit<UserWithId, "password">;
 }
 
 export default Post;

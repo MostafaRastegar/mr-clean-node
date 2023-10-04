@@ -8,7 +8,6 @@ const UserSchema: Schema<UserDocument> = new Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
-  _id: { type: mongoose.Schema.Types.ObjectId, required: false },
 });
 
 export default mongoose.model<UserDocument>("User", UserSchema);

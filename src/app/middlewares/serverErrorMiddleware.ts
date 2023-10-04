@@ -12,12 +12,14 @@ const serverErrorMiddleware = (
   console.log("Middleware Error Hadnling");
   const status = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   const errMsg = error.message || "Something went wrong";
-
-  responseFormatter(res)({
-    data: null,
-    message: errMsg,
-    code: status,
-  });
+  console.log("error :>> ", error);
+  if (error) {
+    return responseFormatter(res)({
+      data: null,
+      message: errMsg,
+      code: status,
+    });
+  }
   next();
 };
 
