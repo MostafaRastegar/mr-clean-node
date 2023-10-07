@@ -9,6 +9,7 @@ export const PostSchema: Schema<PostDocument> = new Schema({
   _author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
+  tags: [String],
 });
 
 export default mongoose.model<PostDocument>("Post", PostSchema);

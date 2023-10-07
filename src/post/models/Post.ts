@@ -9,6 +9,7 @@ interface Post {
 
   created_at?: Date;
   updated_at?: Date;
+  tags?: string[];
 }
 
 export interface PostWithAuthor extends Omit<Post, "_author"> {

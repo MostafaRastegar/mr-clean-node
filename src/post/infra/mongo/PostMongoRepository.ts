@@ -10,6 +10,7 @@ function mapPostRepositoryToPost(postMongoose: any): Post {
     _author: postMongoose._author,
     created_at: postMongoose?.created_at,
     updated_at: postMongoose?.updated_at,
+    tags: postMongoose?.tags,
   };
 }
 
