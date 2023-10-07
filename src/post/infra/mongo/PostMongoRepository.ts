@@ -8,6 +8,8 @@ function mapPostRepositoryToPost(postMongoose: any): Post {
     content: postMongoose.content,
     id: postMongoose._id.toString(),
     _author: postMongoose._author,
+    created_at: postMongoose?.created_at,
+    updated_at: postMongoose?.updated_at,
   };
 }
 
@@ -40,7 +42,7 @@ function PostRepository(): IPostRepository {
     async update(postId: string, postData: Post): Promise<Post | null> {
       const updatedPost = await PostRepositoryModel.findByIdAndUpdate(
         postId,
-        postData,
+        { ...postData, updated_at: Date.now() },
         {
           new: true,
         }

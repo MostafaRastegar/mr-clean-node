@@ -6,6 +6,9 @@ interface Post {
   content: string;
   id: string;
   _author: ObjectId;
+
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface PostWithAuthor extends Omit<Post, "_author"> {

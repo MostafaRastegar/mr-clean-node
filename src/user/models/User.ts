@@ -14,5 +14,7 @@ interface User {
   name: string;
   password: string;
   isAdmin?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 }
 export default User;

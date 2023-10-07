@@ -9,13 +9,14 @@ const mapUserRepositoryToUser = function (userMongoose: any): UserWithId {
     password: userMongoose.password,
     isAdmin: userMongoose.isAdmin,
     id: userMongoose._id,
+    created_at: userMongoose?.created_at,
+    updated_at: userMongoose?.updated_at,
   };
 };
 
 function UserMongoRepository(): IUserRepository {
   return {
     async create(userData: UserWithoutId): Promise<User> {
-      console.log("userData :>> ", userData);
       const user = await UserRepositoryModel.create(userData);
       return mapUserRepositoryToUser(user);
     },
@@ -34,7 +35,7 @@ function UserMongoRepository(): IUserRepository {
     async update(userId: string, userData: User): Promise<User | null> {
       const updatedUser = await UserRepositoryModel.findByIdAndUpdate(
         userId,
-        userData,
+        { ...userData, updated_at: Date.now() },
         {
           new: true,
         }
