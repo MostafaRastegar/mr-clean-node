@@ -1,4 +1,4 @@
-import Post from "@/post/models/Post";
+import Post, { PostWithAuthor } from "@/post/models/Post";
 import { IPostRepository } from "@/post/repositories/IPostRepository";
 import { IPostService } from "@/post/services/IPostService";
 
@@ -12,7 +12,7 @@ function PostService(PostRepository: IPostRepository): IPostService {
       return await PostRepository.getAll();
     },
 
-    async getPostById(id: string): Promise<Post | null> {
+    async getPostById(id: string): Promise<PostWithAuthor | null> {
       return await PostRepository.getById(id);
     },
 

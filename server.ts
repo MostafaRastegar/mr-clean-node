@@ -1,6 +1,6 @@
 import "module-alias/register";
 import express from "express";
-import globalExpressMiddlewares from "./src/app/middlewares/globalExpressMiddlewears";
+import globalExpressMiddlewares from "./src/app/middlewares/globalExpressMiddlewars";
 import connectDB from "./src/app/config/database";
 import config from "./src/app/config";
 import serverErrorMiddleware from "./src/app/middlewares/serverErrorMiddleware";

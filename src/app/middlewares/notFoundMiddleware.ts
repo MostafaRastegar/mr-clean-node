@@ -8,7 +8,7 @@ const notFoundMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  responseFormatter(res)({
+  return responseFormatter(res)({
     data: null,
     message: "API not found.",
     code: 404,
